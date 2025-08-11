@@ -10,4 +10,5 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: update
+    show-sql: true
 
