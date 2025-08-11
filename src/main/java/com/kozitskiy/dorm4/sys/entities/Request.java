@@ -32,14 +32,14 @@ public class Request {
     private RequestStatus status = RequestStatus.PENDING;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     private User student;
 
     @ManyToOne
-    @JoinColumn(name = "worker_id")
+    @JoinColumn(name = "worker_id", nullable = true)
     private User worker;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
 }
