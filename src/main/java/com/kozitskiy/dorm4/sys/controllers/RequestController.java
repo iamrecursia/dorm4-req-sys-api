@@ -6,6 +6,7 @@ import com.kozitskiy.dorm4.sys.dto.RequestUpdateDto;
 import com.kozitskiy.dorm4.sys.dto.WorkerRequestDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
 import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
+import com.kozitskiy.dorm4.sys.mapper.RequestMapper;
 import com.kozitskiy.dorm4.sys.service.RequestService;
 import com.kozitskiy.dorm4.sys.service.UserService;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/request")
+@RequestMapping("/api/v1/requests")
 @RequiredArgsConstructor
 public class RequestController {
     private final RequestService requestService;

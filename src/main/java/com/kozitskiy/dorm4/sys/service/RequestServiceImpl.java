@@ -69,15 +69,7 @@ public class RequestServiceImpl implements RequestService {
 
         Request savedRequest = requestRepository.save(request);
 
-        return RequestResponseDto.builder()
-                .id(savedRequest.getId())
-                .title(savedRequest.getTitle())
-                .description(savedRequest.getDescription())
-                .requestType(savedRequest.getRequestType())
-                .status(savedRequest.getStatus())
-                .createdAt(savedRequest.getCreatedAt())
-                .build();
-
+        return requestMapper.toRequestResponseDto(savedRequest);
     }
 
 
