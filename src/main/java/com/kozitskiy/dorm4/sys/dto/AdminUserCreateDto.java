@@ -5,8 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record UserCreateDto(
+public record AdminUserCreateDto(
         @NotNull String username,
-        @NotNull String password
+        @NotNull String password,
+        @NotNull UserType userType
 ) {
 }

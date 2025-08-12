@@ -8,7 +8,6 @@ import lombok.Builder;
 public record RequestCreateDto(
         @NotNull String title,
         String description,
-        @NotNull RequestType requestType,
-        @NotNull Long studentId
+        @NotNull RequestType requestType
 ) {
 }
