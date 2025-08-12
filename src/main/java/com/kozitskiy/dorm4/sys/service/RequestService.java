@@ -1,6 +1,7 @@
 package com.kozitskiy.dorm4.sys.service;
 
 import com.kozitskiy.dorm4.sys.dto.RequestCreateDto;
+import com.kozitskiy.dorm4.sys.dto.RequestResponseDto;
 import com.kozitskiy.dorm4.sys.dto.RequestUpdateDto;
 import com.kozitskiy.dorm4.sys.dto.WorkerRequestDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
@@ -10,10 +11,10 @@ import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
 import java.util.List;
 
 public interface RequestService {
-    Request createRequest(RequestCreateDto requestCreateDto);
+    RequestResponseDto createRequest(RequestCreateDto requestCreateDto);
     Request updateRequestByWorker(RequestUpdateDto requestUpdateDto);
     List<WorkerRequestDto> getRequestByWorkerIdAndType(Long workerId, RequestType type);
-
+    void deleteRequestByRequestId(Long requestId);
 
 
 //    Request updateRequest(Long requestId, RequestStatus requestStatus, Long studentId);

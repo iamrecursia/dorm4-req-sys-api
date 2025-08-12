@@ -14,5 +14,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     List<WorkerRequestDto> getRequestByWorkerIdAndRequestType(Long workerId, RequestType requestType);
     List<Request> findByWorkerId(Long workerId);
+    void deleteRequestById(Long requestId);
 
 }
