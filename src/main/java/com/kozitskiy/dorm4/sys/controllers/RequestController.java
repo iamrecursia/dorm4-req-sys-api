@@ -38,6 +38,7 @@ public class RequestController {
         return ResponseEntity.ok(requestService.updateRequestByWorker(dto));
     }
 
+    // find all worker requests
     @GetMapping("/{workerId}/by-type/{requestType}")
     @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN')")
     public ResponseEntity<List<WorkerRequestDto>> getWorkerRequests(

@@ -27,7 +27,6 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(userCreateDto));
     }
 
-
     // Создания пользователя админом
     @PostMapping("/by-admin")
     @PreAuthorize("hasAuthority('ADMIN')")
