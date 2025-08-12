@@ -1,6 +1,7 @@
 package com.kozitskiy.dorm4.sys.service;
 
 import com.kozitskiy.dorm4.sys.dto.RequestCreateDto;
+import com.kozitskiy.dorm4.sys.dto.RequestResponseDto;
 import com.kozitskiy.dorm4.sys.dto.RequestUpdateDto;
 import com.kozitskiy.dorm4.sys.dto.WorkerRequestDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
@@ -10,10 +11,14 @@ import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
 import com.kozitskiy.dorm4.sys.exceptions.RequestNotFoundException;
 import com.kozitskiy.dorm4.sys.exceptions.UserNotFoundException;
+import com.kozitskiy.dorm4.sys.mapper.RequestMapper;
 import com.kozitskiy.dorm4.sys.repositories.RequestRepository;
 import com.kozitskiy.dorm4.sys.repositories.UserRepository;
+import com.kozitskiy.dorm4.sys.security.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,13 +31,27 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
+    private final SecurityService securityService;
+    private final RequestMapper requestMapper;
 
+    //Проверить этот метод, а именно мапинг
+    @PreAuthorize("hasAuthority('STUDENT') or hasAnyAuthority('ADMIN')")
     @Override
-    public Request createRequest(RequestCreateDto dto) {
+    public RequestResponseDto createRequest(RequestCreateDto dto) {
+
+        Long currentUserId = securityService.getCurrentUserId();
 
         // Find request author
-        User student = userRepository.findById(dto.studentId())
+        User student = userRepository.findById(currentUserId)
                 .orElseThrow(() -> new UserNotFoundException("Student not found"));
+
+        if(!securityService.isCurrentUserAdmin() &&
+        !student.getUserType().equals(UserType.STUDENT)) {
+            throw new AccessDeniedException("You do not have permission to access this resource");
+
+        }else if(!student.getUserType().equals(UserType.STUDENT)){
+            throw new UserNotFoundException("Only students can create requests");
+        }
 
         // Create request
         Request request = Request.builder()
@@ -48,11 +67,21 @@ public class RequestServiceImpl implements RequestService {
         request.setWorker(worker);
         log.info("Request assigned to worker: {}", worker.getId());
 
-        return requestRepository.save(request);
+        Request savedRequest = requestRepository.save(request);
+
+        return RequestResponseDto.builder()
+                .id(savedRequest.getId())
+                .title(savedRequest.getTitle())
+                .description(savedRequest.getDescription())
+                .requestType(savedRequest.getRequestType())
+                .status(savedRequest.getStatus())
+                .createdAt(savedRequest.getCreatedAt())
+                .build();
 
     }
 
 
+    @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN') or hasAuthority('ADMIN')")
     @Override
     public Request updateRequestByWorker(RequestUpdateDto dto) {
         Request request = requestRepository.findById(dto.requestId())
@@ -89,6 +118,7 @@ public class RequestServiceImpl implements RequestService {
 
     }
 
+    @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN') or hasAuthority('ADMIN')")
     @Override
     public List<WorkerRequestDto> getRequestByWorkerIdAndType(Long workerId, RequestType requestType) {
         log.info("Fetching all requests for worker ID: {}", workerId);
@@ -99,6 +129,12 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
 
     }//
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @Override
+    public void deleteRequestByRequestId(Long requestId) {
+        requestRepository.deleteRequestById(requestId);
+    }
 
     public WorkerRequestDto converToWorkerRequestDto(Request request) {
         return WorkerRequestDto.builder()
