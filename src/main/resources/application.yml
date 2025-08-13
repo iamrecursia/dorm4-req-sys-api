@@ -11,4 +11,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    enabled: true
+logging:
+  level:
+    liquibase: DEBUG

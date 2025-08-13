@@ -1,7 +1,5 @@
 package com.kozitskiy.dorm4.sys.entities;
 
-import com.kozitskiy.dorm4.sys.entities.enums.RequestStatus;
-import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,40 +9,39 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "requests")
-public class Request {
+@Table(name = "rooms")
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String description;
+    @Column(nullable = false)
+    private String number;
 
-    @Enumerated(EnumType.STRING)
-    private RequestType requestType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dormitory_id", nullable = false)
+    private Dormitory dormitory;
 
-    @Enumerated(EnumType.STRING)
-    private RequestStatus status = RequestStatus.PENDING;
+    private Integer capacity;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private User student;
+    @Column(name = "current_occupancy")
+    private Integer currentOccupancy;
 
-    @ManyToOne
-    @JoinColumn(name = "worker_id")
-    private User worker;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Equipment> equipment;
 
     @CreatedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 }

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/initial/001-initial-schema.sql
+  - include:
+      file: db/changelog/initial/002-test-data.sql
+  - include:
+      file: db/changelog/updates/003-create-dormitories.sql
+  - include:
+      file: db/changelog/updates/004-create-rooms-and-equipment.sql
+  - include:
+      file: db/changelog/updates/005-create-equipments.sql
+  - include:
+      file: db/changelog/updates/006-create-notification.sql
+  - include:
+      file: db/changelog/updates/007-add-constraints.sql
+  - include:
+      file: db/changelog/updates/008-add-dormitory-to-users.sql
