@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,7 @@ public class Room {
     @Column(nullable = false)
     private String number;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dormitory_id", nullable = false)
     private Dormitory dormitory;
@@ -39,7 +41,7 @@ public class Room {
 
     @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Equipment> equipment;
+    private List<Equipment> equipment = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")

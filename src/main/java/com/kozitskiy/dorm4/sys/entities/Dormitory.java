@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,5 +31,5 @@ public class Dormitory {
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Room> rooms;
+    private List<Room> rooms = new ArrayList<>();
 }

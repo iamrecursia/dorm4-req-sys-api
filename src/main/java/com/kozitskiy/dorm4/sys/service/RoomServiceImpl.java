@@ -6,7 +6,7 @@ import com.kozitskiy.dorm4.sys.dto.RoomUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Dormitory;
 import com.kozitskiy.dorm4.sys.entities.Room;
 import com.kozitskiy.dorm4.sys.exceptions.DormNotFoundException;
-import com.kozitskiy.dorm4.sys.exceptions.RoomNotExistingException;
+import com.kozitskiy.dorm4.sys.exceptions.RoomNotFoundException;
 import com.kozitskiy.dorm4.sys.mapper.RoomMapper;
 import com.kozitskiy.dorm4.sys.repositories.DormitoryRepository;
 import com.kozitskiy.dorm4.sys.repositories.RoomRepository;
@@ -45,7 +45,7 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     public Room updateRoom(Long roomId, @Valid RoomUpdateDto roomUpdateDto) {
         Room room = roomRepository.findById(roomId).orElseThrow(
-                () -> new RoomNotExistingException("Room with id = " + roomId + "doesn't exist"));
+                () -> new RoomNotFoundException("Room with id = " + roomId + "doesn't exist"));
 
         Room updatedRoom = Room.builder()
                 .currentOccupancy(roomUpdateDto.currentOccupancy())
