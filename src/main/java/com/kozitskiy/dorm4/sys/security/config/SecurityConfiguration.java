@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/v1/requests/create").permitAll()
                                 .requestMatchers("/api/v1/dorm/**").hasAnyAuthority(ADMIN.getAuthority())
+                                .requestMatchers("/api/v1/room/**").hasAnyAuthority(ADMIN.getAuthority())
                         .requestMatchers("/api/v1/requests/**").hasAnyAuthority(
                                 ADMIN.getAuthority(),
                                 STUDENT.getAuthority(),

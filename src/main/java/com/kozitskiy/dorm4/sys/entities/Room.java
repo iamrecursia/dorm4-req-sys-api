@@ -1,10 +1,11 @@
 package com.kozitskiy.dorm4.sys.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -16,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "equipment")
+@EqualsAndHashCode(exclude = "equipment")
 @Table(name = "rooms")
 public class Room {
     @Id
@@ -34,14 +37,25 @@ public class Room {
     @Column(name = "current_occupancy")
     private Integer currentOccupancy;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Equipment> equipment;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public void addEquipment(Equipment equipment) {
+        this.equipment.add(equipment);
+        equipment.setRoom(this);
+    }
+
+    public void removeEquipment(Equipment equipment) {
+        this.equipment.remove(equipment);
+        equipment.setRoom(null);
+    }
 }
