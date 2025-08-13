@@ -7,6 +7,7 @@ public enum UserType implements GrantedAuthority {
     STUDENT,
     PLUMBER,
     ELECTRICIAN,
+    MANAGER,
     ;
 
     @Override

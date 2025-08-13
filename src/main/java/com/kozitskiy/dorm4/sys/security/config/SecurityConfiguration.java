@@ -28,14 +28,18 @@ public class SecurityConfiguration {
         http.csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/v1/requests/create").permitAll()
-                                .requestMatchers("/api/v1/dorm/**").hasAnyAuthority(ADMIN.getAuthority())
-                                .requestMatchers("/api/v1/room/**").hasAnyAuthority(ADMIN.getAuthority())
-                                .requestMatchers("/api/v1/equipment/**").hasAnyAuthority(ADMIN.getAuthority())
+                                .requestMatchers("/api/v1/dorm/**").hasAnyAuthority(
+                                        ADMIN.getAuthority(), MANAGER.getAuthority())
+                                .requestMatchers("/api/v1/room/**").hasAnyAuthority(
+                                        ADMIN.getAuthority(), MANAGER.getAuthority())
+                                .requestMatchers("/api/v1/equipment/**").hasAnyAuthority(
+                                        ADMIN.getAuthority(), MANAGER.getAuthority())
                         .requestMatchers("/api/v1/requests/**").hasAnyAuthority(
                                 ADMIN.getAuthority(),
                                 STUDENT.getAuthority(),
                                 PLUMBER.getAuthority(),
-                                ELECTRICIAN.getAuthority()
+                                ELECTRICIAN.getAuthority(),
+                                        MANAGER.getAuthority()
                         )
                         .anyRequest().authenticated()
                         )

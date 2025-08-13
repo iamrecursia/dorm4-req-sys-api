@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/updates/007-add-constraints.sql
   - include:
       file: db/changelog/updates/008-add-dormitory-to-users.sql
+  - include:
+      file: db/changelog/updates/009-add-check-constraints.sql
