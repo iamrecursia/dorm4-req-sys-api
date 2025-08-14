@@ -33,6 +33,7 @@ public class RequestServiceImpl implements RequestService {
     private final UserRepository userRepository;
     private final SecurityService securityService;
     private final RequestMapper requestMapper;
+    private final RequestAccessService requestAccessService;
 
     //Проверить этот метод, а именно мапинг
     @PreAuthorize("hasAuthority('STUDENT') or hasAnyAuthority('ADMIN')")
@@ -41,17 +42,12 @@ public class RequestServiceImpl implements RequestService {
 
         Long currentUserId = securityService.getCurrentUserId();
 
+        requestAccessService.validateRequestCreationRights(currentUserId);
+
+
         // Find request author
         User student = userRepository.findById(currentUserId)
                 .orElseThrow(() -> new UserNotFoundException("Student not found"));
-
-        if(!securityService.isCurrentUserAdmin() &&
-        !student.getUserType().equals(UserType.STUDENT)) {
-            throw new AccessDeniedException("You do not have permission to access this resource");
-
-        }else if(!student.getUserType().equals(UserType.STUDENT)){
-            throw new UserNotFoundException("Only students can create requests");
-        }
 
         // Create request
         Request request = Request.builder()
