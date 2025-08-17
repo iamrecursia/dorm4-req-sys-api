@@ -2,6 +2,8 @@ package com.kozitskiy.dorm4.sys.controllers;
 
 import com.kozitskiy.dorm4.sys.entities.Dormitory;
 import com.kozitskiy.dorm4.sys.service.DormitoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -15,10 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/dorm")
 @RequiredArgsConstructor
+@Tag(name = "Dormitory Management", description = "API for dormitory management")
 public class DormitoryController {
     private final DormitoryService dormitoryService;
 
     @PostMapping("/create")
+    @Operation(summary = "Create dormitory")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Dormitory> createDormitory(@RequestBody @Valid Dormitory dormitory) {
         Dormitory createdDormitory = dormitoryService.createDorm(dormitory);
@@ -26,6 +30,7 @@ public class DormitoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "Update dormitory information")
     @PutMapping("/update/{id}")
     public ResponseEntity<Dormitory> updateDormitory(@PathVariable Long id,
                                                      @RequestBody @Valid Dormitory updatedDormitory
@@ -35,12 +40,14 @@ public class DormitoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "Get all dormitories")
     @GetMapping("/get-all")
     public ResponseEntity<List<Dormitory>> findAllDormitory() {
         return new ResponseEntity<>(dormitoryService.findAllDormitory(), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "Delete dormitory by id")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Dormitory> deleteDormitory(@PathVariable Long id) {
         dormitoryService.deleteDorm(id);

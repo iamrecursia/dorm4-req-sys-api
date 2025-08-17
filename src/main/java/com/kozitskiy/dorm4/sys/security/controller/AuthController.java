@@ -3,6 +3,7 @@ package com.kozitskiy.dorm4.sys.security.controller;
 import com.kozitskiy.dorm4.sys.dto.AuthRequestDto;
 import com.kozitskiy.dorm4.sys.dto.AuthResponseDto;
 import com.kozitskiy.dorm4.sys.security.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication API")
 public class AuthController {
     private final AuthService authService;
 

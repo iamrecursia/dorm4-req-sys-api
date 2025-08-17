@@ -6,9 +6,10 @@ import com.kozitskiy.dorm4.sys.dto.RequestUpdateDto;
 import com.kozitskiy.dorm4.sys.dto.WorkerRequestDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
 import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
-import com.kozitskiy.dorm4.sys.mapper.RequestMapper;
 import com.kozitskiy.dorm4.sys.service.RequestService;
 import com.kozitskiy.dorm4.sys.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/requests")
 @RequiredArgsConstructor
+@Tag(name = "Request Management", description = "API for request management")
 public class RequestController {
     private final RequestService requestService;
     private final UserService userService;
 
     @PostMapping()
+    @Operation(summary = "Create request")
     @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     public ResponseEntity<RequestResponseDto> createRequest(@RequestBody @Valid RequestCreateDto dto) {
         RequestResponseDto created = requestService.createRequest(dto);
@@ -33,6 +36,7 @@ public class RequestController {
     }
 
     @PutMapping("/{id}/worker")
+    @Operation(summary = "Update request")
     @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN') or hasAuthority('ADMIN')")
     public ResponseEntity<Request> updateRequest(@PathVariable Long id, @RequestBody RequestUpdateDto dto) {
         return ResponseEntity.ok(requestService.updateRequestByWorker(dto));
@@ -40,6 +44,7 @@ public class RequestController {
 
     // find all worker requests
     @GetMapping("/workers/{id}")
+    @Operation(summary = "Get worker request")
     @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN')")
     public ResponseEntity<List<WorkerRequestDto>> getWorkerRequests(
             @PathVariable Long id, @RequestParam RequestType requestType) {
@@ -48,6 +53,7 @@ public class RequestController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete request")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Request> deleteRequest(@PathVariable Long id) {
         requestService.deleteRequestByRequestId(id);

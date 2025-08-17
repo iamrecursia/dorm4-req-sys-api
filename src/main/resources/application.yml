@@ -24,3 +24,9 @@ jwt:
     user:
       name: admin       # если нужен дефолтный пользователь (необязательно)
       password: admin123
+#springdoc:
+#  api-docs:
+#    path: /api-docs/v3/api-docs
+#  swagger-ui:
+#    path: /api-docs/swagger-ui.html
+#    tags-sorter: alpha
