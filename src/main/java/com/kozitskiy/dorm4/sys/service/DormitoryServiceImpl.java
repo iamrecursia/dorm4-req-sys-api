@@ -1,54 +1,60 @@
 package com.kozitskiy.dorm4.sys.service;
 
+import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryCreateDto;
+import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryResponseDto;
+import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Dormitory;
-import com.kozitskiy.dorm4.sys.entities.Room;
 import com.kozitskiy.dorm4.sys.exceptions.DormNotFoundException;
 import com.kozitskiy.dorm4.sys.repositories.DormitoryRepository;
-import jakarta.persistence.Table;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DormitoryServiceImpl implements DormitoryService {
     private final DormitoryRepository dormitoryRepository;
 
     @Override
-    public Dormitory createDorm(Dormitory dormitory) {
-        Dormitory createdDorm = Dormitory.builder()
+    public DormitoryResponseDto createDorm(DormitoryCreateDto dto) {
+        Dormitory dormitory = Dormitory.builder()
+                .name(dto.name())
+                .address(dto.address())
+                .floorsCount(dto.floorsCound())
+                .rooms(new ArrayList<>())
+                .build();
+
+        dormitoryRepository.save(dormitory);
+
+        return DormitoryResponseDto.builder()
+                .id(dormitory.getId())
                 .name(dormitory.getName())
                 .address(dormitory.getAddress())
                 .floorsCount(dormitory.getFloorsCount())
-                .rooms(dormitory.getRooms())
                 .build();
-
-        return dormitoryRepository.save(createdDorm);
     }
 
     @Transactional
     @Override
-    public Dormitory updateDorm(Long dormId, Dormitory dormitory) {
-        Dormitory requiredDorm = dormitoryRepository.findById(dormId)
-                .orElseThrow(() -> new DormNotFoundException("Dorm with id = " + dormId + " wasn't found"));
+    public DormitoryResponseDto updateDorm(Long dormId, DormitoryUpdateDto dto) {
+        Dormitory dormitory = dormitoryRepository.findById(dormId)
+                .orElseThrow(() -> new DormNotFoundException("Dormitory with id " + dormId + " not found"));
 
-        requiredDorm.setName(dormitory.getName());
-        requiredDorm.setAddress(dormitory.getAddress());
-        requiredDorm.setFloorsCount(dormitory.getFloorsCount());
-
-        if (requiredDorm.getRooms().isEmpty()){
-            requiredDorm.setRooms(requiredDorm.getRooms());
+        if (dto.name() != null && !dto.name().isBlank()){
+            dormitory.setName(dto.name());
         }
 
-        requiredDorm.getRooms().clear();
-        for (Room room : requiredDorm.getRooms()){
-            room.setDormitory(requiredDorm);
-            requiredDorm.getRooms().add(room);
-        }
+        Dormitory updatedDormitory = dormitoryRepository.save(dormitory);
 
-        return dormitoryRepository.save(requiredDorm);
+        return DormitoryResponseDto.builder()
+                .id(updatedDormitory.getId())
+                .name(updatedDormitory.getName())
+                .address(updatedDormitory.getAddress())
+                .floorsCount(updatedDormitory.getFloorsCount())
+                .build();
     }
 
     @Override
@@ -58,7 +64,14 @@ public class DormitoryServiceImpl implements DormitoryService {
 
     @Transactional
     @Override
-    public List<Dormitory> findAllDormitory() {
-        return dormitoryRepository.findAll();
+    public List<DormitoryResponseDto> findAllDormitory() {
+        return dormitoryRepository.findAll().stream()
+                .map(dormitory -> DormitoryResponseDto.builder()
+                        .id(dormitory.getId())
+                        .name(dormitory.getName())
+                        .address(dormitory.getAddress())
+                        .floorsCount(dormitory.getFloorsCount())
+                        .build())
+                .toList();
     }
 }

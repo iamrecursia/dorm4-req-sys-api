@@ -1,12 +1,14 @@
 package com.kozitskiy.dorm4.sys.controllers;
 
+import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryCreateDto;
+import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryResponseDto;
+import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Dormitory;
 import com.kozitskiy.dorm4.sys.service.DormitoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,25 +26,25 @@ public class DormitoryController {
     @PostMapping("/create")
     @Operation(summary = "Create dormitory")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Dormitory> createDormitory(@RequestBody @Valid Dormitory dormitory) {
-        Dormitory createdDormitory = dormitoryService.createDorm(dormitory);
-        return new ResponseEntity<>(createdDormitory, HttpStatus.CREATED);
+    public ResponseEntity<DormitoryResponseDto> createDormitory(@RequestBody @Valid DormitoryCreateDto dto) {
+        DormitoryResponseDto responseDto = dormitoryService.createDorm(dto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Update dormitory information")
     @PutMapping("/update/{id}")
-    public ResponseEntity<Dormitory> updateDormitory(@PathVariable Long id,
-                                                     @RequestBody @Valid Dormitory updatedDormitory
+    public ResponseEntity<DormitoryResponseDto> updateDormitory(@PathVariable Long id,
+                                                     @RequestBody @Valid DormitoryUpdateDto dto
                                                      ) {
-        Dormitory dorm = dormitoryService.updateDorm(id, updatedDormitory);
-        return new ResponseEntity<>(dorm, HttpStatus.OK);
+        DormitoryResponseDto response = dormitoryService.updateDorm(id, dto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Get all dormitories")
     @GetMapping("/get-all")
-    public ResponseEntity<List<Dormitory>> findAllDormitory() {
+    public ResponseEntity<List<DormitoryResponseDto>> findAllDormitory() {
         return new ResponseEntity<>(dormitoryService.findAllDormitory(), HttpStatus.OK);
     }
 
