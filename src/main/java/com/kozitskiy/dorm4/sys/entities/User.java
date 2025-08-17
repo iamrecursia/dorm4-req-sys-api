@@ -31,6 +31,9 @@ public class User {
     @Column(name = "user_type")
     private UserType userType;
 
+    @Column(name = "token", length = 512)
+    private String token;
+
     @ManyToOne
     @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;

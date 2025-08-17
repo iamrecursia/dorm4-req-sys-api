@@ -3,6 +3,7 @@ package com.kozitskiy.dorm4.sys.security.config;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,20 +28,26 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/api/v1/requests/create").permitAll()
+                                .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/api/v1/users/register").permitAll()
+
                                 .requestMatchers("/api/v1/dorm/**").hasAnyAuthority(
                                         ADMIN.getAuthority(), MANAGER.getAuthority())
                                 .requestMatchers("/api/v1/room/**").hasAnyAuthority(
                                         ADMIN.getAuthority(), MANAGER.getAuthority())
                                 .requestMatchers("/api/v1/equipment/**").hasAnyAuthority(
                                         ADMIN.getAuthority(), MANAGER.getAuthority())
-                        .requestMatchers("/api/v1/requests/**").hasAnyAuthority(
-                                ADMIN.getAuthority(),
-                                STUDENT.getAuthority(),
-                                PLUMBER.getAuthority(),
-                                ELECTRICIAN.getAuthority(),
+                        .requestMatchers(HttpMethod.POST, "/api/v1/requests").hasAnyAuthority(
+                                        STUDENT.getAuthority(),
+                                        ADMIN.getAuthority(),
                                         MANAGER.getAuthority()
-                        )
+                                )
+                                .requestMatchers("/api/v1/requests/**").hasAnyAuthority(
+                                        ADMIN.getAuthority(),
+                                        PLUMBER.getAuthority(),
+                                        ELECTRICIAN.getAuthority(),
+                                        MANAGER.getAuthority()
+                                )
                         .anyRequest().authenticated()
                         )
                 .httpBasic(withDefaults());

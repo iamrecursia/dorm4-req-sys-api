@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/room")
+@RequestMapping("api/v1/rooms")
 @RequiredArgsConstructor
 public class RoomController {
     private final RoomService roomService;
     private final DormitoryService dormitoryService;
 
-    @PostMapping("/create")
+    @PostMapping()
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<RoomResponseDto> createRoom(@RequestBody @Valid RoomRequestDto room) {
         Room roomEntity = roomService.createRoom(room);
@@ -38,7 +38,7 @@ public class RoomController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<RoomResponseDto> updateRoom(@PathVariable Long id,
                                            @RequestBody @Valid RoomUpdateDto dto
     ) {
@@ -62,7 +62,7 @@ public class RoomController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Room> deleteDormitory(@PathVariable Long id) {
         roomService.deleteRoom(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
