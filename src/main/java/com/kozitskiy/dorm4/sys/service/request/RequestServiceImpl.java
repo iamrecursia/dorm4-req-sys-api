@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.request;
 
 import com.kozitskiy.dorm4.sys.dto.RequestCreateDto;
 import com.kozitskiy.dorm4.sys.dto.RequestResponseDto;
@@ -17,7 +17,6 @@ import com.kozitskiy.dorm4.sys.repositories.UserRepository;
 import com.kozitskiy.dorm4.sys.security.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 

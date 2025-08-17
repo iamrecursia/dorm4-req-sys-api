@@ -1,9 +1,8 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.equipment;
 
 import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentCreateDto;
 import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentResponseDto;
 import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentUpdateDto;
-import com.kozitskiy.dorm4.sys.entities.Equipment;
 
 import java.util.List;
 

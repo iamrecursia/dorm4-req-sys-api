@@ -11,8 +11,7 @@ public class EquipmentMapper {
                 equipment.getId(),
                 equipment.getName(),
                 equipment.getDescription(),
-                equipment.getStatus(),
-                equipment.getRoom().getId()
+                equipment.getStatus()
         );
     }
 

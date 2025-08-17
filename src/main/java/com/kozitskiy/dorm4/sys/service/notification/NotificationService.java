@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.notification;
 
 import com.kozitskiy.dorm4.sys.dto.notification.NotificationCreateDto;
 import com.kozitskiy.dorm4.sys.dto.notification.NotificationResponseDto;

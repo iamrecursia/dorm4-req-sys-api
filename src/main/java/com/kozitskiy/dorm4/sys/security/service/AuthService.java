@@ -5,7 +5,7 @@ import com.kozitskiy.dorm4.sys.dto.AuthResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.repositories.UserRepository;
 import com.kozitskiy.dorm4.sys.security.utils.JwtTokenProvider;
-import com.kozitskiy.dorm4.sys.service.UserService;
+import com.kozitskiy.dorm4.sys.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

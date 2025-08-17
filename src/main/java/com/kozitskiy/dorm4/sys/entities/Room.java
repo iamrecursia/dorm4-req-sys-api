@@ -51,6 +51,11 @@ public class Room {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public void addEquipment(Equipment equipment) {
         this.equipment.add(equipment);
         equipment.setRoom(this);

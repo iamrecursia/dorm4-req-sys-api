@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.notification;
 
 import com.kozitskiy.dorm4.sys.dto.notification.NotificationCreateDto;
 import com.kozitskiy.dorm4.sys.dto.notification.NotificationResponseDto;
@@ -10,6 +10,7 @@ import com.kozitskiy.dorm4.sys.exceptions.UserNotFoundException;
 import com.kozitskiy.dorm4.sys.repositories.NotificationRepository;
 import com.kozitskiy.dorm4.sys.repositories.UserRepository;
 import com.kozitskiy.dorm4.sys.security.service.SecurityService;
+import com.kozitskiy.dorm4.sys.service.request.RequestAccessService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

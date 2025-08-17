@@ -4,7 +4,7 @@ import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryCreateDto;
 import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryResponseDto;
 import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Dormitory;
-import com.kozitskiy.dorm4.sys.service.DormitoryService;
+import com.kozitskiy.dorm4.sys.service.dorm.DormitoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

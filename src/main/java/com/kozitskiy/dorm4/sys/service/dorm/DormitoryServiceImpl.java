@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.dorm;
 
 import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryCreateDto;
 import com.kozitskiy.dorm4.sys.dto.dorm.DormitoryResponseDto;

@@ -1,11 +1,10 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.equipment;
 
 import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentCreateDto;
 import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentResponseDto;
 import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Equipment;
 import com.kozitskiy.dorm4.sys.exceptions.EquipmentNotFoundException;
-import com.kozitskiy.dorm4.sys.exceptions.RoomNotFoundException;
 import com.kozitskiy.dorm4.sys.mapper.EquipmentMapper;
 import com.kozitskiy.dorm4.sys.repositories.EquipmentRepository;
 import com.kozitskiy.dorm4.sys.repositories.RoomRepository;

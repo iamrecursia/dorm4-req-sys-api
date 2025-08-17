@@ -1,10 +1,7 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.room;
 
-import com.kozitskiy.dorm4.sys.entities.Equipment;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Builder;
-
-import java.util.List;
 
 @Builder
 public record RoomUpdateDto(

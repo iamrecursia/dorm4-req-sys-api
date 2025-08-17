@@ -1,7 +1,6 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.room;
 
 import lombok.Builder;
-import lombok.Data;
 
 @Builder
 public record RoomResponseDto(

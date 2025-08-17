@@ -1,12 +1,9 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.service;
 
 import com.kozitskiy.dorm4.sys.dto.AdminUserCreateDto;
 import com.kozitskiy.dorm4.sys.dto.UserCreateDto;
 import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
-import com.kozitskiy.dorm4.sys.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

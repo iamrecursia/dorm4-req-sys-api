@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.service;
 
 import com.kozitskiy.dorm4.sys.dto.AdminUserCreateDto;
 import com.kozitskiy.dorm4.sys.dto.UserCreateDto;

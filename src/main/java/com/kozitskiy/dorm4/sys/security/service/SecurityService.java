@@ -1,7 +1,6 @@
 package com.kozitskiy.dorm4.sys.security.service;
 
 import com.kozitskiy.dorm4.sys.repositories.UserRepository;
-import com.kozitskiy.dorm4.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

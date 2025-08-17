@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service;
+package com.kozitskiy.dorm4.sys.service.request;
 
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
