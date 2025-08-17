@@ -1,7 +1,7 @@
 package com.kozitskiy.dorm4.sys.service;
 
-import com.kozitskiy.dorm4.sys.dto.CreateNotificationDto;
-import com.kozitskiy.dorm4.sys.dto.NotificationResponseDto;
+import com.kozitskiy.dorm4.sys.dto.notification.NotificationCreateDto;
+import com.kozitskiy.dorm4.sys.dto.notification.NotificationResponseDto;
 import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.Notification;
 import com.kozitskiy.dorm4.sys.entities.User;
@@ -26,30 +26,42 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     @Transactional
-    public Notification createNotification(CreateNotificationDto dto) {
+    public NotificationResponseDto createNotificationForUser(NotificationCreateDto dto) {
 
         if (dto.message() == null || dto.message().isEmpty()) {
             throw new IllegalStateException("Message cannot be empty");
         }
 
-        Long currentUserId = securityService.getCurrentUserId();
-        User user = userRepository.findById(currentUserId).orElseThrow(
-                () -> new UserNotFoundException("User not found")
-        );
+        if (dto.recipientUserId() == null) {
+            throw new IllegalStateException("Recipient userId cannot be empty");
+        }
 
+        // Проверка прав текущего пользователя
+        Long currentUserId = securityService.getCurrentUserId();
         requestAccessService.validateRequestCreationRights(currentUserId);
+
+        // Получаем получателя
+        User recipient = userRepository.findById(dto.recipientUserId()).orElseThrow(
+                () -> new UserNotFoundException("Recipient not found")
+        );
 
         Notification notification = Notification.builder()
                 .message(dto.message())
-                .user(user)
+                .user(recipient)
                 .isRead(false)
                 .build();
 
         Notification savedNotification = notificationRepository.save(notification);
-        user.getNotifications().add(notification);
+        recipient.getNotifications().add(savedNotification);
 
-        return savedNotification;
-
+        return NotificationResponseDto.builder()
+                .message(savedNotification.getMessage())
+                .userResponseDto(UserResponseDto.builder()
+                        .id(savedNotification.getUser().getId())
+                        .username(savedNotification.getUser().getUsername())
+                        .userType(savedNotification.getUser().getUserType())
+                        .build())
+                .build();
     }
 
     @Override
@@ -58,19 +70,30 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Notification updateNotification(Long id, CreateNotificationDto notification) {
+    public Notification updateNotification(Long id, NotificationCreateDto notification) {
         Notification notificationToUpdate = notificationRepository.findById(id).orElseThrow(
                 () -> new NotificationNotFoundException("Notification was not found")
         );
         notificationToUpdate.setMessage(notification.message());
-        notificationToUpdate.setIsRead(notification.isRead());
 
         return notificationRepository.save(notificationToUpdate);
     }
 
     @Override
-    public List<Notification> getNotifications() {
-        return notificationRepository.findAll();
+    @Transactional
+    public List<NotificationResponseDto> findAllNotifications() {
+        return notificationRepository.findAll().stream()
+                .map(notification -> NotificationResponseDto
+                        .builder()
+                        .message(notification.getMessage())
+                        .userResponseDto(UserResponseDto.builder()
+                                .id(notification.getUser().getId())
+                                .username(notification.getUser().getUsername())
+                                .userType(notification.getUser().getUserType())
+                                .build())
+                        .build())
+                .toList();
+
     }
 
     @Override
@@ -79,15 +102,10 @@ public class NotificationServiceImpl implements NotificationService {
                 () -> new NotificationNotFoundException("Notification was not found")
         );
 
-        Long currentUser = securityService.getCurrentUserId();
-        User user = userRepository.findById(currentUser).orElseThrow(
-                () -> new UserNotFoundException("User not found")
-        );
-
         UserResponseDto userDto = UserResponseDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .userType(user.getUserType())
+                .id(notification.getUser().getId())
+                .username(notification.getUser().getUsername())
+                .userType(notification.getUser().getUserType())
                 .build();
 
         return NotificationResponseDto.builder()

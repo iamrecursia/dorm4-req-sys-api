@@ -1,7 +1,7 @@
 package com.kozitskiy.dorm4.sys.controllers;
 
-import com.kozitskiy.dorm4.sys.dto.CreateNotificationDto;
-import com.kozitskiy.dorm4.sys.dto.NotificationResponseDto;
+import com.kozitskiy.dorm4.sys.dto.notification.NotificationCreateDto;
+import com.kozitskiy.dorm4.sys.dto.notification.NotificationResponseDto;
 import com.kozitskiy.dorm4.sys.entities.Notification;
 import com.kozitskiy.dorm4.sys.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,9 +21,9 @@ public class NotificationController {
     @PostMapping
     @Operation(summary = "Create notification")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN')")
-    public ResponseEntity<Notification> createNotification(@RequestBody @Valid CreateNotificationDto dto){
-        Notification notification = notificationService.createNotification(dto);
-        return new ResponseEntity<>(notification, HttpStatus.CREATED);
+    public ResponseEntity<NotificationResponseDto> createNotification(@RequestBody @Valid NotificationCreateDto createDto) {
+        NotificationResponseDto responseDto = notificationService.createNotificationForUser(createDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
