@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.auth;
 
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
 import jakarta.validation.constraints.NotNull;

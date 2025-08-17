@@ -1,7 +1,7 @@
 package com.kozitskiy.dorm4.sys.security.controller;
 
-import com.kozitskiy.dorm4.sys.dto.AuthRequestDto;
-import com.kozitskiy.dorm4.sys.dto.AuthResponseDto;
+import com.kozitskiy.dorm4.sys.dto.auth.AuthRequestDto;
+import com.kozitskiy.dorm4.sys.dto.auth.AuthResponseDto;
 import com.kozitskiy.dorm4.sys.security.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

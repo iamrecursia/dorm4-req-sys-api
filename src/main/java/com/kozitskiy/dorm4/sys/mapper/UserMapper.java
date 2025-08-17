@@ -1,10 +1,5 @@
 package com.kozitskiy.dorm4.sys.mapper;
 
-import com.kozitskiy.dorm4.sys.dto.AdminUserCreateDto;
-import com.kozitskiy.dorm4.sys.dto.RequestResponseDto;
-import com.kozitskiy.dorm4.sys.dto.UserCreateDto;
-import com.kozitskiy.dorm4.sys.entities.User;
-import com.kozitskiy.dorm4.sys.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component

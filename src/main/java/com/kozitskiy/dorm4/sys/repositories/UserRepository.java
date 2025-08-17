@@ -1,6 +1,6 @@
 package com.kozitskiy.dorm4.sys.repositories;
 
-import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.auth;
 
 import lombok.Builder;
 

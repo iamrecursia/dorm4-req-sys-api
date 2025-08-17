@@ -1,7 +1,6 @@
 package com.kozitskiy.dorm4.sys.mapper;
 
-import com.kozitskiy.dorm4.sys.dto.RequestCreateDto;
-import com.kozitskiy.dorm4.sys.dto.RequestResponseDto;
+import com.kozitskiy.dorm4.sys.dto.request.RequestResponseDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
 import org.springframework.stereotype.Component;
 

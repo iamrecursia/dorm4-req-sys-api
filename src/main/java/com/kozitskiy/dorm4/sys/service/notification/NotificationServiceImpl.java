@@ -2,7 +2,7 @@ package com.kozitskiy.dorm4.sys.service.notification;
 
 import com.kozitskiy.dorm4.sys.dto.notification.NotificationCreateDto;
 import com.kozitskiy.dorm4.sys.dto.notification.NotificationResponseDto;
-import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.Notification;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.exceptions.NotificationNotFoundException;

@@ -1,8 +1,8 @@
 package com.kozitskiy.dorm4.sys.controllers;
 
-import com.kozitskiy.dorm4.sys.dto.AdminUserCreateDto;
-import com.kozitskiy.dorm4.sys.dto.UserCreateDto;
-import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
+import com.kozitskiy.dorm4.sys.dto.auth.AdminUserCreateDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserCreateDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

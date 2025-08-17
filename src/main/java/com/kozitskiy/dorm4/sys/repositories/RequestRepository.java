@@ -1,6 +1,6 @@
 package com.kozitskiy.dorm4.sys.repositories;
 
-import com.kozitskiy.dorm4.sys.dto.WorkerRequestDto;
+import com.kozitskiy.dorm4.sys.dto.user.WorkerRequestDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.entities.enums.RequestType;

@@ -1,8 +1,8 @@
 package com.kozitskiy.dorm4.sys.service.service;
 
-import com.kozitskiy.dorm4.sys.dto.AdminUserCreateDto;
-import com.kozitskiy.dorm4.sys.dto.UserCreateDto;
-import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
+import com.kozitskiy.dorm4.sys.dto.auth.AdminUserCreateDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserCreateDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
 import com.kozitskiy.dorm4.sys.mapper.UserMapper;

@@ -1,7 +1,7 @@
 package com.kozitskiy.dorm4.sys.security.service;
 
-import com.kozitskiy.dorm4.sys.dto.AuthRequestDto;
-import com.kozitskiy.dorm4.sys.dto.AuthResponseDto;
+import com.kozitskiy.dorm4.sys.dto.auth.AuthRequestDto;
+import com.kozitskiy.dorm4.sys.dto.auth.AuthResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.repositories.UserRepository;
 import com.kozitskiy.dorm4.sys.security.utils.JwtTokenProvider;

@@ -1,7 +1,6 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.request;
 
 import com.kozitskiy.dorm4.sys.entities.enums.RequestStatus;
-import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

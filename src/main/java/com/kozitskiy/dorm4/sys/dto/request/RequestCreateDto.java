@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.request;
 
 import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
 import jakarta.validation.constraints.NotNull;

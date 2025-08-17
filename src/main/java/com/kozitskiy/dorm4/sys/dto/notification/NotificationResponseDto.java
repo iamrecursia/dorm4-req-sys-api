@@ -1,6 +1,6 @@
 package com.kozitskiy.dorm4.sys.dto.notification;
 
-import com.kozitskiy.dorm4.sys.dto.UserResponseDto;
+import com.kozitskiy.dorm4.sys.dto.user.UserResponseDto;
 import lombok.Builder;
 
 @Builder
