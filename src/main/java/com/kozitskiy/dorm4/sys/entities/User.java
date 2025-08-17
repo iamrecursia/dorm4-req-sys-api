@@ -1,5 +1,6 @@
 package com.kozitskiy.dorm4.sys.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,7 @@ public class User {
     @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
 }

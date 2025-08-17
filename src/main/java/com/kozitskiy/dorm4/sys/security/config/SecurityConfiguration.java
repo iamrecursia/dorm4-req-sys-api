@@ -30,7 +30,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/api/v1/users/register").permitAll()
-
+                                .requestMatchers("/api/v1/notifications/**").hasAnyAuthority(
+                                        ADMIN.getAuthority(), PLUMBER.getAuthority(), ELECTRICIAN.getAuthority()
+                                )
                                 .requestMatchers("/api/v1/dorm/**").hasAnyAuthority(
                                         ADMIN.getAuthority(), MANAGER.getAuthority())
                                 .requestMatchers("/api/v1/room/**").hasAnyAuthority(

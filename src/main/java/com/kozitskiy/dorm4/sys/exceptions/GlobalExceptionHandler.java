@@ -62,5 +62,10 @@ public class GlobalExceptionHandler {
                 "Malformed JSON request: " + ex.getMostSpecificCause().getMessage());
     }
 
+    @ExceptionHandler(NotificationNotFoundException.class)
+    public ProblemDetail handleNotificationNotFoundException(NotificationNotFoundException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
 
 }
