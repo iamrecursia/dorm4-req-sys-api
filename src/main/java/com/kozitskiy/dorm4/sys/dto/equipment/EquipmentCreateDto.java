@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.equipment;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,9 +12,6 @@ public record EquipmentCreateDto(
 
         @NotBlank(message = "description cannot be blank")
         String description,
-
-        @NotNull(message = "Room ID cannot be null")
-        Long roomId,
 
         @Pattern(regexp = "WORKING|REPAIR|DECOMMISSIONED",
                 message = "Status must be WORKING, REPAIR or DECOMMISSIONED")

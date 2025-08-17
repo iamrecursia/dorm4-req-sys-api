@@ -1,6 +1,6 @@
 package com.kozitskiy.dorm4.sys.mapper;
 
-import com.kozitskiy.dorm4.sys.dto.EquipmentResponseDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentResponseDto;
 import com.kozitskiy.dorm4.sys.entities.Equipment;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
 package com.kozitskiy.dorm4.sys.controllers;
 
-import com.kozitskiy.dorm4.sys.dto.EquipmentCreateDto;
-import com.kozitskiy.dorm4.sys.dto.EquipmentResponseDto;
-import com.kozitskiy.dorm4.sys.dto.EquipmentUpdateDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentCreateDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentResponseDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Equipment;
 import com.kozitskiy.dorm4.sys.mapper.EquipmentMapper;
 import com.kozitskiy.dorm4.sys.service.EquipmentService;
@@ -26,9 +26,9 @@ public class EquipmentController {
 
     @PostMapping("/create")
     @Operation(summary = "Create equipment")
-    public ResponseEntity<Equipment> createEquipment(@RequestBody @Valid EquipmentCreateDto equipment) {
-        Equipment createdEquipment = equipmentService.createEquipment(equipment);
-        return new ResponseEntity<>(createdEquipment, HttpStatus.CREATED);
+    public ResponseEntity<EquipmentResponseDto> createEquipment(@RequestBody @Valid EquipmentCreateDto equipment) {
+        EquipmentResponseDto response = equipmentService.createEquipment(equipment);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")

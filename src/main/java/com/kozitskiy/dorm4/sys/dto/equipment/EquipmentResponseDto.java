@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.dto;
+package com.kozitskiy.dorm4.sys.dto.equipment;
 
 import lombok.Builder;
 
@@ -7,7 +7,6 @@ public record EquipmentResponseDto(
         Long id,
         String name,
         String description,
-        String status,
-        Long roomId
+        String status
 ) {
 }

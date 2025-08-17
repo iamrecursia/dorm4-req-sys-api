@@ -1,8 +1,8 @@
 package com.kozitskiy.dorm4.sys.service;
 
-import com.kozitskiy.dorm4.sys.dto.EquipmentCreateDto;
-import com.kozitskiy.dorm4.sys.dto.EquipmentResponseDto;
-import com.kozitskiy.dorm4.sys.dto.EquipmentUpdateDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentCreateDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentResponseDto;
+import com.kozitskiy.dorm4.sys.dto.equipment.EquipmentUpdateDto;
 import com.kozitskiy.dorm4.sys.entities.Equipment;
 import com.kozitskiy.dorm4.sys.exceptions.EquipmentNotFoundException;
 import com.kozitskiy.dorm4.sys.exceptions.RoomNotFoundException;
@@ -23,16 +23,20 @@ public class EquipmentServiceImpl implements EquipmentService {
     private final RoomRepository roomRepository;
 
     @Override
-    public Equipment createEquipment(EquipmentCreateDto dto) {
+    public EquipmentResponseDto createEquipment(EquipmentCreateDto dto) {
         Equipment createdEquipment = Equipment.builder()
                 .name(dto.name())
                 .description(dto.description())
                 .status(dto.status())
-                .room(roomRepository.findById(dto.roomId())
-                        .orElseThrow(() -> new RoomNotFoundException("Room not found")))
                 .build();
+        equipmentRepository.save(createdEquipment);
 
-        return equipmentRepository.save(createdEquipment);
+        return EquipmentResponseDto.builder()
+                .id(createdEquipment.getId())
+                .name(createdEquipment.getName())
+                .description(createdEquipment.getDescription())
+                .status(createdEquipment.getStatus())
+                .build();
     }
 
     @Override
@@ -50,12 +54,8 @@ public class EquipmentServiceImpl implements EquipmentService {
                     updatedEquipment.getId(),
                     updatedEquipment.getName(),
                     updatedEquipment.getDescription(),
-                    updatedEquipment.getStatus(),
-                    updatedEquipment.getRoom().getId()
+                    updatedEquipment.getStatus()
             );
-
-
-
     }
 
     @Override
