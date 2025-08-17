@@ -25,32 +25,32 @@ public class RequestController {
     private final RequestService requestService;
     private final UserService userService;
 
-    @PostMapping("/create")
-    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('ADMIN')")
+    @PostMapping()
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     public ResponseEntity<RequestResponseDto> createRequest(@RequestBody @Valid RequestCreateDto dto) {
         RequestResponseDto created = requestService.createRequest(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/worker-update")
+    @PutMapping("/{id}/worker")
     @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN') or hasAuthority('ADMIN')")
-    public ResponseEntity<Request> updateRequest(@RequestBody RequestUpdateDto dto) {
+    public ResponseEntity<Request> updateRequest(@PathVariable Long id, @RequestBody RequestUpdateDto dto) {
         return ResponseEntity.ok(requestService.updateRequestByWorker(dto));
     }
 
     // find all worker requests
-    @GetMapping("/{workerId}/by-type/{requestType}")
+    @GetMapping("/workers/{id}")
     @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN')")
     public ResponseEntity<List<WorkerRequestDto>> getWorkerRequests(
-            @PathVariable Long workerId, @PathVariable RequestType requestType) {
+            @PathVariable Long id, @RequestParam RequestType requestType) {
 
-            return ResponseEntity.ok(requestService.getRequestByWorkerIdAndType(workerId, requestType));
+            return ResponseEntity.ok(requestService.getRequestByWorkerIdAndType(id, requestType));
     }
 
-    @DeleteMapping("/{requestId}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Request> deleteRequest(@PathVariable Long requestId) {
-        requestService.deleteRequestByRequestId(requestId);
+    public ResponseEntity<Request> deleteRequest(@PathVariable Long id) {
+        requestService.deleteRequestByRequestId(id);
         return ResponseEntity.noContent().build();
     }
 

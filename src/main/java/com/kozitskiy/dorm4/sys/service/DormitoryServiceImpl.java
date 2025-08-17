@@ -52,9 +52,8 @@ public class DormitoryServiceImpl implements DormitoryService {
     }
 
     @Override
-    public ResponseEntity<Dormitory> deleteDorm(Long dormId) {
+    public void deleteDorm(Long dormId) {
         dormitoryRepository.deleteById(dormId);
-        return null;
     }
 
     @Transactional

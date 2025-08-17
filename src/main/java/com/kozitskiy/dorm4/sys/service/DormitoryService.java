@@ -8,6 +8,6 @@ import java.util.List;
 public interface DormitoryService {
     Dormitory createDorm(Dormitory dormitory);
     Dormitory updateDorm(Long dormId, Dormitory dormitory);
-    ResponseEntity<Dormitory> deleteDorm(Long dormId);
+    void deleteDorm(Long dormId);
     List<Dormitory> findAllDormitory();
 }
