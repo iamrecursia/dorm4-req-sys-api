@@ -17,3 +17,5 @@ databaseChangeLog:
       file: db/changelog/updates/008-add-dormitory-to-users.sql
   - include:
       file: db/changelog/updates/009-add-check-constraints.sql
+  - include:
+      file: db/changelog/updates/010-add-token-field-in-user.sql

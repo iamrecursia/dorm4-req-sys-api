@@ -17,3 +17,10 @@ spring:
 logging:
   level:
     liquibase: DEBUG
+jwt:
+  secret: "bXlTdXBlclNlY3JldEtleTEyMzQ1Njc4OTAxMjM0NTY="  # сгенерированный ключ
+  expiration: 86400000
+  security:
+    user:
+      name: admin       # если нужен дефолтный пользователь (необязательно)
+      password: admin123
