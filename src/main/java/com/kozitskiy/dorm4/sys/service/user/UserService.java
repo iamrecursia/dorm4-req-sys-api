@@ -1,4 +1,4 @@
-package com.kozitskiy.dorm4.sys.service.service;
+package com.kozitskiy.dorm4.sys.service.user;
 
 import com.kozitskiy.dorm4.sys.dto.auth.AdminUserCreateDto;
 import com.kozitskiy.dorm4.sys.dto.user.UserCreateDto;
@@ -9,11 +9,11 @@ import java.util.List;
 
 
 public interface UserService {
-    public User createUser(UserCreateDto userCreateDto);
+    User createUser(UserCreateDto userCreateDto);
     User createUserByAdmin(AdminUserCreateDto adminUserCreateDto);
-    public User findUserByUsername(String username);
-    public UserResponseDto getUserById(Long id);
-    public List<UserResponseDto> findAllUsers();
-    public void deleteUserById(Long id);
+    User findUserByUsername(String username);
+    UserResponseDto getUserById(Long id);
+    List<UserResponseDto> findAllUsers();
+    void deleteUserById(Long id);
 
 }

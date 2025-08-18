@@ -1,5 +1,6 @@
 package com.kozitskiy.dorm4.sys.repositories;
 
+import com.kozitskiy.dorm4.sys.dto.user.UserCreateDto;
 import com.kozitskiy.dorm4.sys.dto.user.UserResponseDto;
 import com.kozitskiy.dorm4.sys.entities.User;
 import com.kozitskiy.dorm4.sys.entities.enums.UserType;
@@ -13,4 +14,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUserType(UserType userType);
     UserResponseDto getUserById(Long id);
     void deleteUserById(Long id);
+    UserResponseDto updateUser(Long id, UserCreateDto userCreateDto);
 }

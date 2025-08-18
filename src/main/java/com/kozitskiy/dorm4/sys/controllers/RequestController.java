@@ -7,7 +7,7 @@ import com.kozitskiy.dorm4.sys.dto.user.WorkerRequestDto;
 import com.kozitskiy.dorm4.sys.entities.Request;
 import com.kozitskiy.dorm4.sys.entities.enums.RequestType;
 import com.kozitskiy.dorm4.sys.service.request.RequestService;
-import com.kozitskiy.dorm4.sys.service.service.UserService;
+import com.kozitskiy.dorm4.sys.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
