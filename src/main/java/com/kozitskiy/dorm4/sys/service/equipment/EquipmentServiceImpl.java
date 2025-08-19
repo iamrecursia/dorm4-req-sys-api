@@ -28,13 +28,14 @@ public class EquipmentServiceImpl implements EquipmentService {
                 .description(dto.description())
                 .status(dto.status())
                 .build();
-        equipmentRepository.save(createdEquipment);
+
+        Equipment savedEquipment = equipmentRepository.save(createdEquipment);
 
         return EquipmentResponseDto.builder()
-                .id(createdEquipment.getId())
-                .name(createdEquipment.getName())
-                .description(createdEquipment.getDescription())
-                .status(createdEquipment.getStatus())
+                .id(savedEquipment.getId())
+                .name(savedEquipment.getName())
+                .description(savedEquipment.getDescription())
+                .status(savedEquipment.getStatus())
                 .build();
     }
 

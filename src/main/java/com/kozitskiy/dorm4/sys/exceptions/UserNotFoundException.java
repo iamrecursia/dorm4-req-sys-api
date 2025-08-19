@@ -1,6 +1,8 @@
 package com.kozitskiy.dorm4.sys.exceptions;
 
-public class UserNotFoundException extends RuntimeException {
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+public class UserNotFoundException extends UsernameNotFoundException {
     public UserNotFoundException(String message) {
         super(message);
     }

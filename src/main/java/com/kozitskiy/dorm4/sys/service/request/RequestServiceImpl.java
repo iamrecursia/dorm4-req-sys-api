@@ -35,7 +35,6 @@ public class RequestServiceImpl implements RequestService {
     private final RequestAccessService requestAccessService;
 
     //Проверить этот метод, а именно мапинг
-    @PreAuthorize("hasAuthority('STUDENT') or hasAnyAuthority('ADMIN')")
     @Override
     public RequestResponseDto createRequest(RequestCreateDto dto) {
 
@@ -67,8 +66,6 @@ public class RequestServiceImpl implements RequestService {
         return requestMapper.toRequestResponseDto(savedRequest);
     }
 
-
-    @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN') or hasAuthority('ADMIN')")
     @Override
     public Request updateRequestByWorker(RequestUpdateDto dto) {
         Request request = requestRepository.findById(dto.requestId())
@@ -105,7 +102,6 @@ public class RequestServiceImpl implements RequestService {
 
     }
 
-    @PreAuthorize("hasAuthority('PLUMBER') or hasAuthority('ELECTRICIAN') or hasAuthority('ADMIN')")
     @Override
     public List<WorkerRequestDto> getRequestByWorkerIdAndType(Long workerId, RequestType requestType) {
         log.info("Fetching all requests for worker ID: {}", workerId);
@@ -117,7 +113,6 @@ public class RequestServiceImpl implements RequestService {
 
     }//
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @Override
     public void deleteRequestByRequestId(Long requestId) {
         requestRepository.deleteRequestById(requestId);
@@ -151,47 +146,4 @@ public class RequestServiceImpl implements RequestService {
             case PLUMBER -> UserType.PLUMBER;
         };
     }
-
-
-//    @Override
-//    public Request updateRequest(Long requestId, RequestStatus requestStatus, Long studentId) {
-//        User worker = userRepository.findById(studentId)
-//                .orElseThrow(() -> new UserNotFoundException("User not found"));
-//
-//        Request request = requestRepository.findById(requestId)
-//                .orElseThrow(() -> new RuntimeException("Request not found"));
-//
-//        if(!request.getWorker().equals(worker)) {
-//            throw new RuntimeException("You can only update ur own requests");
-//        }
-//
-//        request.setStatus(requestStatus);
-//        request.setUpdatedAt(LocalDateTime.now());
-//        return requestRepository.save(request);
-//
-//    }
-//
-//    @Override
-//    public List<Request> getAllRequestsForWorkers(Long workerId) {
-//        User worker = userRepository.findById(workerId)
-//                .orElseThrow(() -> new UserNotFoundException("User not found"));
-//
-//        return requestRepository.findByWorker(worker);
-//
-//    }
-//
-//    @Override
-//    public List<Request> getAllRequestsForStudent(Long studentId) {
-//        User student = userRepository.findById(studentId)
-//                .orElseThrow(() -> new UserNotFoundException("User not found"));
-//
-//        return requestRepository.findByStudent(student);
-//    }
-//
-//    @Override
-//    public List<Request> getAllRequests() {
-//        return requestRepository.findAll();
-//    }
-//
-
 }
