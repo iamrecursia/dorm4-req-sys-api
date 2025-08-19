@@ -27,13 +27,13 @@ public class DormitoryServiceImpl implements DormitoryService {
                 .rooms(new ArrayList<>())
                 .build();
 
-        dormitoryRepository.save(dormitory);
+        Dormitory savedDorm = dormitoryRepository.save(dormitory);
 
         return DormitoryResponseDto.builder()
-                .id(dormitory.getId())
-                .name(dormitory.getName())
-                .address(dormitory.getAddress())
-                .floorsCount(dormitory.getFloorsCount())
+                .id(savedDorm.getId())
+                .name(savedDorm.getName())
+                .address(savedDorm.getAddress())
+                .floorsCount(savedDorm.getFloorsCount())
                 .build();
     }
 
