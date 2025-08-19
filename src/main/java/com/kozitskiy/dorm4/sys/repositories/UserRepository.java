@@ -14,5 +14,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUserType(UserType userType);
     UserResponseDto getUserById(Long id);
     void deleteUserById(Long id);
-    UserResponseDto updateUser(Long id, UserCreateDto userCreateDto);
 }
