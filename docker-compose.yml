@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  postgres:
+  postgres:  # Этот сервис будет использоваться ТОЛЬКО с профилем 'docker'
     image: postgres:15
     environment:
-      POSTGRES_DB: postgres      # Имя БД
-      POSTGRES_USER: postgres   # Логин
-      POSTGRES_PASSWORD: recursia2005 # Пароль
+      POSTGRES_DB: test
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
     ports:
       - "5432:5432"
     volumes:
@@ -16,9 +16,11 @@ services:
   app:
     build: .
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: recursia2005
+      SPRING_PROFILES_ACTIVE: local  # Автоматически активируем профиль 'docker'
+      # Переопределяем настройки при необходимости:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/test
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
     ports:
       - "8080:8080"
     depends_on:
