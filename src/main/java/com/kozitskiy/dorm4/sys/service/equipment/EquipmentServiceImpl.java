@@ -23,20 +23,12 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public EquipmentResponseDto createEquipment(EquipmentCreateDto dto) {
-        Equipment createdEquipment = Equipment.builder()
-                .name(dto.name())
-                .description(dto.description())
-                .status(dto.status())
-                .build();
+
+        Equipment createdEquipment = equipmentMapper.convertToEntity(dto);
 
         Equipment savedEquipment = equipmentRepository.save(createdEquipment);
 
-        return EquipmentResponseDto.builder()
-                .id(savedEquipment.getId())
-                .name(savedEquipment.getName())
-                .description(savedEquipment.getDescription())
-                .status(savedEquipment.getStatus())
-                .build();
+        return equipmentMapper.convertToDto(savedEquipment);
     }
 
     @Override
@@ -44,18 +36,11 @@ public class EquipmentServiceImpl implements EquipmentService {
             Equipment equipment = equipmentRepository.findById(id)
                     .orElseThrow(() -> new EquipmentNotFoundException("Equipment doesn't exists"));
 
-            equipment.setName(equipmentUpdateDto.name());
-            equipment.setDescription(equipmentUpdateDto.description());
-            equipment.setStatus(equipmentUpdateDto.status());
+            equipmentMapper.updateEntityFromDto(equipmentUpdateDto, equipment);
 
             Equipment updatedEquipment = equipmentRepository.save(equipment);
 
-            return new EquipmentResponseDto(
-                    updatedEquipment.getId(),
-                    updatedEquipment.getName(),
-                    updatedEquipment.getDescription(),
-                    updatedEquipment.getStatus()
-            );
+            return equipmentMapper.convertToDto(updatedEquipment);
     }
 
     @Override

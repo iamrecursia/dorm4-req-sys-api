@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/equipment")
+@RequestMapping("api/v1/equipments")
 @RequiredArgsConstructor
 @Tag(name = "Equipment Management", description = "API for equipment management")
 public class EquipmentController {
     private final EquipmentService equipmentService;
     private final EquipmentMapper equipmentMapper;
 
-    @PostMapping("/create")
+    @PostMapping
     @Operation(summary = "Create equipment")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     public ResponseEntity<EquipmentResponseDto> createEquipment(@RequestBody @Valid EquipmentCreateDto equipment) {
@@ -32,7 +32,7 @@ public class EquipmentController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Update equipment")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     public ResponseEntity<EquipmentResponseDto> updateEquipment(@PathVariable Long id, @RequestBody @Valid EquipmentUpdateDto equipment) {
@@ -47,12 +47,11 @@ public class EquipmentController {
         return ResponseEntity.ok(equipmentService.getAllEquipments());
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete equipment by id")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     public ResponseEntity<Void> deleteEquipment(@PathVariable Long id) {
         equipmentService.deleteEquipment(id);
         return ResponseEntity.ok().build();
     }
-
 }
