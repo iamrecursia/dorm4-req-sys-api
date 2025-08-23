@@ -28,24 +28,11 @@ public class RoomServiceImpl implements RoomService {
     @Override
     @Transactional
     public RoomResponseDto createRoom(@Valid RoomRequestDto requestDto) {
-        Dormitory dormitory = DormitoryRepository.findById(requestDto.dormitoryId())
-                .orElseThrow(() -> new DormNotFoundException("Dormitory with ID " + requestDto.dormitoryId() + " not found"));
+        Room createdRoom = roomMapper.convertToEntity(requestDto);
 
-        Room createdRoom = Room.builder()
-                .capacity(requestDto.capacity())
-                .dormitory(dormitory)
-                .currentOccupancy(requestDto.currentOccupancy())
-                .number(requestDto.number())
-                .equipment(new ArrayList<>())
-                .build();
         roomRepository.save(createdRoom);
 
-        return RoomResponseDto.builder()
-                .id(createdRoom.getId())
-                .capacity(createdRoom.getCapacity())
-                .currentOccupancy(createdRoom.getCurrentOccupancy())
-                .number(createdRoom.getNumber())
-                .build();
+        return roomMapper.convertToDto(createdRoom);
     }
 
     @Override
@@ -54,17 +41,10 @@ public class RoomServiceImpl implements RoomService {
         Room room = roomRepository.findById(roomId).orElseThrow(
                 () -> new RoomNotFoundException("Room with id = " + roomId + "doesn't exist"));
 
-        room.setCapacity(roomUpdateDto.capacity());
-        room.setCurrentOccupancy(roomUpdateDto.currentOccupancy());
+        roomMapper.updateEntityDormDto(roomUpdateDto, room);
+        Room updatedRoom = roomRepository.save(room);
 
-        roomRepository.save(room);
-        // add equipment update
-        return RoomResponseDto.builder()
-                .currentOccupancy(room.getCurrentOccupancy())
-                .number(room.getNumber())
-                .id(room.getId())
-                .capacity(room.getCapacity())
-                .build();
+        return roomMapper.convertToDto(updatedRoom);
     }
 
     @Override
